@@ -73,16 +73,18 @@ public class MessageListItemView extends RelativeLayout {
 
     @Override
     protected int[] onCreateDrawableState(int extraSpace) {
-        // We are going to add 1 extra state.
-        final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
-
-        // If the message is unread then we merge our custom message unread state into the existing drawable
-        // state for this view before returning it.
+        // If the message is unread then we merge our custom message unread state into
+        // the existing drawable state before returning it.
         if (messageUnread) {
-            mergeDrawableStates(drawableState, STATE_MESSAGE_UNREAD);
-        }
+            // We are going to add 1 extra state.
+            final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
 
-        return drawableState;
+            mergeDrawableStates(drawableState, STATE_MESSAGE_UNREAD);
+
+            return drawableState;
+        } else {
+            return super.onCreateDrawableState(extraSpace);
+        }
     }
 
     public void setMessageSubject(String subject) {
